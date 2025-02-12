@@ -6,7 +6,7 @@
 ```python
 import json
 
-from aiwolf_nlp_common.protocol import Packet
+from aiwolf_nlp_common.packet import Packet
 
 recv: str = """{"request":"INITIALIZE","info":{"statusMap":{"Agent[01]":"ALIVE","Agent[02]":"ALIVE","Agent[03]":"ALIVE","Agent[04]":"ALIVE","Agent[05]":"ALIVE"},"roleMap":{"Agent[02]":"SEER"},"remainTalkMap":{},"remainWhisperMap":{},"day":0,"agent":"Agent[02]"},"setting":{"roleNumMap":{"BODYGUARD":0,"MEDIUM":0,"POSSESSED":0,"SEER":1,"VILLAGER":3,"WEREWOLF":1},"maxTalk":3,"maxTalkTurn":15,"maxWhisper":3,"maxWhisperTurn":15,"maxSkip":3,"isEnableNoAttack":true,"isVoteVisible":false,"isTalkOnFirstDay":true,"responseTimeout":90000,"actionTimeout":60000,"maxRevote":1,"maxAttackRevote":1}}"""
 value: dict = json.loads(recv)
@@ -27,7 +27,7 @@ Agent[02]
 ## インストール方法
 
 ```
-pip install aiwolf-nlp-common
+python -m pip install aiwolf-nlp-common
 ```
 
 > [!IMPORTANT]
@@ -35,3 +35,38 @@ pip install aiwolf-nlp-common
 > 修正前のコードの動作確認は実施済みになりますが、型エラーなどの警告が表示されます。修正後のコードの動作確認は現在実施中になります。  
 > こちらのコードは修正後のコードになります。  
 > aiwolf-nlp-agentのv.0.2.0未満（v0.1.0など）を使う場合は、本ライブラリのバージョンはv.0.2.2以下をご利用ください。
+
+## 運営向け
+
+パッケージ管理ツールとしてuvの使用を推奨します。
+
+```
+git clone https://github.com/kano-lab/aiwolf-nlp-common.git
+cd aiwolf-nlp-common
+uv venv
+uv sync
+```
+
+### パッケージのビルド
+
+```
+uv build
+```
+
+### パッケージの配布
+
+#### PyPI
+
+```
+uv publish --token <PyPIのアクセストークン>
+```
+
+#### TestPyPI
+
+```
+uv publish --publish-url https://test.pypi.org/legacy/ --token <TestPyPIのアクセストークン>
+```
+
+
+uvを使用しない場合については、パッケージ化と配布については下記のページを参考にしてください。  
+[Packaging and distributing projects](https://packaging.python.org/en/latest/guides/distributing-packages-using-setuptools/)

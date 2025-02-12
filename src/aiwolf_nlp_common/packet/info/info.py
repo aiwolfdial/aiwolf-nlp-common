@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from aiwolf_nlp_common.protocol.info.result import DivineResult, MediumResult
+from aiwolf_nlp_common.packet.info.result import DivineResult, MediumResult
 
 from .list import AttackVoteList, VoteList
 from .map.role_map import RoleMap

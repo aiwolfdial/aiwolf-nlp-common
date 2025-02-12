@@ -4,9 +4,6 @@ from aiwolf_nlp_common.role import Role, RoleInfo
 
 
 class AgentRole:
-    __agent: str
-    __role: Role
-
     def __init__(self, agent: str, role: str) -> None:
         self.__agent = agent
         self.__role = RoleInfo.get_role_info(role=role)

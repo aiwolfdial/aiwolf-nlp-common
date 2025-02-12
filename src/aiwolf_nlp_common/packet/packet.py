@@ -6,26 +6,26 @@ from .setting.setting import Setting
 
 
 class Packet:
-    request: str
-    info: Info | None
-    setting: Setting | None
-    talk_history: TalkList | None
-    whisper_history: WhisperList | None
-
     def __str__(self) -> str:
         return (
-            f"Request: {self.request}\n\n"
+            f"Request: {self.request}\n"
             f"---info---\n"
             f"{self.info}\n"
             f"---setting---\n"
             f"{self.setting}\n"
             f"---talkHistory---\n"
-            f"{self.talk_history}\n\n"
+            f"{self.talk_history}\n"
             f"---whisperHistory---\n"
             f"{self.whisper_history}\n"
         )
 
     def __init__(self, value: dict) -> None:
+        self.request: str
+        self.info: Info | None
+        self.setting: Setting | None
+        self.talk_history: TalkList | None
+        self.whisper_history: WhisperList | None
+
         self.request = value["request"]
         if value.get("info") is not None:
             self.info = Info(value=value.get("info"))

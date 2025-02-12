@@ -4,12 +4,6 @@ import enum
 
 from .role_team import RoleTeam, RoleTeamInfo
 
-LANGUAGE = 2
-
-EN_POS = 1
-JA_POS = 2
-TEAM_POS = 3
-
 
 class Role:
     __en: str

@@ -3,7 +3,7 @@ requires-python = ">=3.8"
 
 [[package]]
 name = "aiwolf-nlp-common"
-version = "0.4.1"
+version = "0.4.6"
 source = { editable = "." }
 dependencies = [
     { name = "websocket-client" },

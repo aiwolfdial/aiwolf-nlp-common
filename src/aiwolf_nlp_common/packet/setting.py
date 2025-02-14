@@ -35,8 +35,8 @@ class Setting:
         _is_enabled_no_attack = bool(obj.get("isEnableNoAttack"))
         _is_vote_visible = bool(obj.get("isVoteVisible"))
         _is_talk_on_first_day = bool(obj.get("isTalkOnFirstDay"))
-        _response_timeout = int(obj.get("responseTimeout"))
-        _action_timeout = int(obj.get("actionTimeout"))
+        _response_timeout = int(obj.get("responseTimeout")) // 1000
+        _action_timeout = int(obj.get("actionTimeout")) // 1000
         _max_revote = int(obj.get("maxRevote"))
         _max_attack_revote = int(obj.get("maxAttackRevote"))
         return Setting(

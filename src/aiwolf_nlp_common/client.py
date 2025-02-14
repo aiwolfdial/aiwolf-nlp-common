@@ -1,10 +1,12 @@
 from __future__ import annotations
 
+import json
 import sys
 
 import websocket
 
 from aiwolf_nlp_common import _version
+from aiwolf_nlp_common.packet.packet import Packet
 
 
 class Client:
@@ -26,14 +28,15 @@ class Client:
             header=self.headers,
         )
 
-    def receive(self) -> str:
+    def receive(self) -> Packet:
         resp = self.socket.recv()
         resp_str = ""
         if isinstance(resp, (bytes, bytearray, memoryview)):
             resp_str = bytes(resp).decode("utf-8")
         else:
             resp_str = resp
-        return resp_str
+        resp_dict = json.loads(resp_str)
+        return Packet.from_dict(resp_dict)
 
     def send(self, req: str) -> None:
         if not req.endswith("\n"):
@@ -41,5 +44,4 @@ class Client:
         self.socket.send(req)
 
     def close(self) -> None:
-        self.socket.close()
         self.socket.close()

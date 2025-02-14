@@ -11,6 +11,16 @@ from aiwolf_nlp_common.packet.talk import Talk
 
 @dataclass
 class Packet:
+    """パケットの構造体.
+
+    Attributes:
+        request (Request): リクエストの種類.
+        info (Info | None): ゲームの設定を示す情報.
+        setting (Setting | None): ゲームの設定情報.
+        talk_history (list[Talk] | None): トークの履歴を示す情報.
+        whisper_history (list[Talk] | None): 囁きの履歴を示す情報.
+    """
+
     request: Request
     info: Info | None
     setting: Setting | None

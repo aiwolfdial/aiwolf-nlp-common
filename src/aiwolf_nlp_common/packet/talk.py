@@ -4,6 +4,18 @@ from typing import Any
 
 @dataclass
 class Talk:
+    """会話の内容を示す情報の構造体.
+
+    Attributes:
+        idx (int): 会話のインデックス.
+        day (int): 会話が行われた日数.
+        turn (int): 会話が行われたターン数.
+        agent (str): 会話を行ったエージェントのインデックス付き文字列.
+        text (str): 会話の内容.
+        skip (bool): 会話がスキップであるかどうか.
+        over (bool): 会話がオーバーであるかどうか.
+    """
+
     idx: int
     day: int
     turn: int

@@ -8,6 +8,25 @@ from aiwolf_nlp_common.packet.role import Role
 
 @dataclass
 class Setting:
+    """ゲームの設定を示す情報の構造体.
+
+    Attributes:
+        player_num (int): ゲームのプレイヤー数.
+        role_num_map (dict[Role, int]): 各役職の人数を示すマップ.
+        max_talk (int): 1日あたりの1エージェントの最大発言数 (トーク).
+        max_talk_turn (int): 1日あたりの全体の発言回数 (トーク).
+        max_whisper (int): 1日あたりの1エージェントの最大囁き数.
+        max_whisper_turn (int): 1日あたりの全体の囁き回数.
+        max_skip (int): 1日あたりの全体のスキップ回数 (トークと囁きのスキップ回数は区別してカウントされる).
+        is_enabled_no_attack (bool): 襲撃なしの日を許可するか.
+        is_vote_visible (bool): 投票の結果を公開するか.
+        is_talk_on_first_day (bool): 1日目の発言を許可するか.
+        response_timeout (int): エージェントのアクションのタイムアウト時間 (秒).
+        action_timeout (int): エージェントの生存確認のタイムアウト時間 (秒).
+        max_revote (int): 1位タイの場合の最大再投票回数.
+        max_attack_revote (int): 1位タイの場合の最大襲撃再投票回数.
+    """  # noqa: E501
+
     player_num: int
     role_num_map: dict[Role, int]
     max_talk: int

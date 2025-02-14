@@ -13,14 +13,21 @@ class Species(str, Enum):
 
 
 class Role(str, Enum):
-    WEREWOLF = ("WEREWOLF", Team.WEREWOLF, Species.WEREWOLF)
-    POSSESSED = ("POSSESSED", Team.WEREWOLF, Species.HUMAN)
-    SEER = ("SEER", Team.VILLAGER, Species.HUMAN)
-    BODYGUARD = ("BODYGUARD", Team.VILLAGER, Species.HUMAN)
-    VILLAGER = ("VILLAGER", Team.VILLAGER, Species.HUMAN)
-    MEDIUM = ("MEDIUM", Team.VILLAGER, Species.HUMAN)
+    WEREWOLF = "WEREWOLF"
+    POSSESSED = "POSSESSED"
+    SEER = "SEER"
+    BODYGUARD = "BODYGUARD"
+    VILLAGER = "VILLAGER"
+    MEDIUM = "MEDIUM"
 
-    def __init__(self, value: str, team: Team, species: Species) -> None:
-        self._value_ = value
-        self.team = team
-        self.species = species
+    @property
+    def team(self) -> Team:
+        if self in [Role.WEREWOLF, Role.POSSESSED]:
+            return Team.WEREWOLF
+        return Team.VILLAGER
+
+    @property
+    def species(self) -> Species:
+        if self == Role.WEREWOLF:
+            return Species.WEREWOLF
+        return Species.HUMAN

@@ -14,6 +14,7 @@ class Info:
     """パケット内のゲームの現状態を示す情報の構造体.
 
     Attributes:
+        game_id (str): ゲームの識別子.
         day (int): 現在の日数.
         agent (str | None): 自分のエージェントのインデックス付き文字列.
         medium_result (Judge | None): 霊能者の結果 (エージェントの役職が霊媒師であるかつ霊能結果が設定されている場合のみ).
@@ -26,6 +27,7 @@ class Info:
         role_map (dict[str, Role] | None): 各エージェントの役職を示すマップ (自分以外のエージェントの役職は見えません).
     """  # noqa: E501
 
+    game_id: str
     day: int
     agent: str | None
     medium_result: Judge | None
@@ -39,6 +41,7 @@ class Info:
 
     @staticmethod
     def from_dict(obj: Any) -> Info:  # noqa: ANN401
+        _game_id = str(obj.get("gameID"))
         _day = int(obj.get("day"))
         _agent = str(obj.get("agent")) if obj.get("agent") is not None else None
         _medium_result = (
@@ -82,6 +85,7 @@ class Info:
             else None
         )
         return Info(
+            _game_id,
             _day,
             _agent,
             _medium_result,

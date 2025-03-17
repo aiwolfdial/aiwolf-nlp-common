@@ -16,7 +16,7 @@ print(packet.info.agent) # Agent[01]
 ```
 
 詳細については下記のプロトコルの説明やゲームサーバのソースコードを参考にしてください。  
-[プロトコルの実装について](https://github.com/kano-lab/aiwolf-nlp-server/blob/main/doc/protocol.md)
+[プロトコルの実装について](https://github.com/aiwolfdial/aiwolf-nlp-server/blob/main/doc/protocol.md)
 
 ## インストール方法
 
@@ -29,7 +29,7 @@ python -m pip install aiwolf-nlp-common
 パッケージ管理ツールとしてuvの使用を推奨します。
 
 ```
-git clone https://github.com/kano-lab/aiwolf-nlp-common.git
+git clone https://github.com/aiwolfdial/aiwolf-nlp-common.git
 cd aiwolf-nlp-common
 uv venv
 uv sync

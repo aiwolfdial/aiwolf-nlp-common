@@ -29,7 +29,7 @@ version = { attr = "aiwolf_nlp_common._version.__version__" }
 version.path = "src/aiwolf_nlp_common/_version.py"
 
 [project.urls]
-Homepage = "https://aiwolf.org"
+Homepage = "https://aiwolfdial.github.io/aiwolf-nlp/"
 
 [dependency-groups]
 dev = ["build>=1.2.2.post1", "pytest>=8.3.3", "twine>=5.1.1"]

@@ -25,6 +25,9 @@ class Info:
         attack_vote_list (list[Vote] | None): 襲撃の投票結果 (エージェントの役職が人狼かつ襲撃投票結果が公開されている場合のみ).
         status_map (dict[str, Status] | None): 各エージェントの生存状態を示すマップ.
         role_map (dict[str, Role] | None): 各エージェントの役職を示すマップ (自分以外のエージェントの役職は見えません).
+        remain_count (int | None): 残りのトークもしくは囁きリクエストを受信する可能性のある最大の回数. (リクエストの種類が TALK | WHISPER の場合のみ).
+        remain_length (int | None): 残りのトークもしくは囁きリクエストで消費することのできる文字数. 最低文字数を除く. (リクエストの種類が TALK | WHISPER の場合のみ).
+        remain_skip (int | None): 残りのトークもしくは囁きリクエストでスキップすることのできる回数. (リクエストの種類が TALK | WHISPER の場合のみ).
     """  # noqa: E501
 
     game_id: str
@@ -38,6 +41,9 @@ class Info:
     attack_vote_list: list[Vote] | None
     status_map: dict[str, Status] | None
     role_map: dict[str, Role] | None
+    remain_count: int | None = None
+    remain_length: int | None = None
+    remain_skip: int | None = None
 
     @staticmethod
     def from_dict(obj: Any) -> Info:  # noqa: ANN401
@@ -84,6 +90,9 @@ class Info:
             if obj.get("roleMap") is not None
             else None
         )
+        _remain_count = int(obj.get("remainCount")) if obj.get("remainCount") is not None else None
+        _remain_length = int(obj.get("remainLength")) if obj.get("remainLength") is not None else None  # noqa: E501
+        _remain_skip = int(obj.get("remainSkip")) if obj.get("remainSkip") is not None else None
         return Info(
             _game_id,
             _day,
@@ -96,4 +105,7 @@ class Info:
             _attack_vote_list,
             _status_map,
             _role_map,
+            _remain_count,
+            _remain_length,
+            _remain_skip,
         )

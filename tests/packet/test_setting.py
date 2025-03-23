@@ -6,11 +6,11 @@ from aiwolf_nlp_common.packet.setting import Setting
 
 def test_setting() -> None:
     value = json.loads(
-        """{"playerNum":5,"maxTalk":5,"maxTalkTurn":20,"maxWhisper":5,"maxWhisperTurn":20,"maxSkip":0,"isEnableNoAttack":false,"isVoteVisible":false,"isTalkOnFirstDay":true,"responseTimeout":120000,"actionTimeout":60000,"maxRevote":1,"maxAttackRevote":1,"roleNumMap":{"BODYGUARD":0,"MEDIUM":0,"POSSESSED":1,"SEER":1,"VILLAGER":2,"WEREWOLF":1}}""",
+        """{"agentCount":5,"voteVisibility":false,"talkOnFirstDay":true,"talk":{"maxCount":{"perAgent":5,"perDay":20},"maxLength":{"perTalk":-1,"perAgent":-1,"baseLength":0},"maxSkip":0},"whisper":{"maxCount":{"perAgent":5,"perDay":20},"maxLength":{"perTalk":-1,"perAgent":-1,"baseLength":0},"maxSkip":0},"vote":{"maxCount":1},"attackVote":{"maxCount":1,"allowNoTarget":false},"timeout":{"action":60000,"response":120000},"roleNumMap":{"BODYGUARD":0,"MEDIUM":0,"POSSESSED":1,"SEER":1,"VILLAGER":2,"WEREWOLF":1}}""",
     )
     setting = Setting.from_dict(value)
 
-    assert setting.player_num == 5
+    assert setting.agent_count == 5
     assert setting.role_num_map == {
         Role.BODYGUARD: 0,
         Role.MEDIUM: 0,
@@ -19,15 +19,22 @@ def test_setting() -> None:
         Role.VILLAGER: 2,
         Role.WEREWOLF: 1,
     }
-    assert setting.max_talk == 5
-    assert setting.max_talk_turn == 20
-    assert setting.max_whisper == 5
-    assert setting.max_whisper_turn == 20
-    assert setting.max_skip == 0
-    assert setting.is_enabled_no_attack is False
-    assert setting.is_vote_visible is False
-    assert setting.is_talk_on_first_day is True
-    assert setting.response_timeout == 120
-    assert setting.action_timeout == 60
-    assert setting.max_revote == 1
-    assert setting.max_attack_revote == 1
+    assert setting.vote_visibility is False
+    assert setting.talk_on_first_day is True
+    assert setting.talk.max_count.per_agent == 5
+    assert setting.talk.max_count.per_day == 20
+    assert setting.talk.max_length.per_talk == -1
+    assert setting.talk.max_length.per_agent == -1
+    assert setting.talk.max_length.base_length == 0
+    assert setting.talk.max_skip == 0
+    assert setting.whisper.max_count.per_agent == 5
+    assert setting.whisper.max_count.per_day == 20
+    assert setting.whisper.max_length.per_talk == -1
+    assert setting.whisper.max_length.per_agent == -1
+    assert setting.whisper.max_length.base_length == 0
+    assert setting.whisper.max_skip == 0
+    assert setting.vote.max_count == 1
+    assert setting.attack_vote.max_count == 1
+    assert setting.attack_vote.allow_no_target is False
+    assert setting.timeout.action == 60
+    assert setting.timeout.response == 120

@@ -14,9 +14,9 @@ class TalkMaxCount:
 
 @dataclass
 class TalkMaxLength:
-    per_talk: int
-    per_agent: int
-    base_length: int
+    per_talk: int | None
+    per_agent: int | None
+    base_length: int | None
 
 
 @dataclass
@@ -34,9 +34,9 @@ class WhisperMaxCount:
 
 @dataclass
 class WhisperMaxLength:
-    per_talk: int
-    per_agent: int
-    base_length: int
+    per_talk: int | None
+    per_agent: int | None
+    base_length: int | None
 
 
 @dataclass
@@ -74,15 +74,15 @@ class Setting:
         talk_on_first_day (bool): 1日目の発言を許可するか.
         talk.max_count.per_agent (int): 1日あたりの1エージェントの最大発言回数.
         talk.max_count.per_day (int): 1日あたりの全体の発言回数.
-        talk.max_length.per_talk (int): 1回のトークあたりの最大文字数.
-        talk.max_length.per_agent (int): 1日あたりの1エージェントの最大文字数.
-        talk.max_length.base_length (int): 1日あたりの1エージェントの最大文字数に含まない最低文字数.
+        talk.max_length.per_talk (int | None): 1回のトークあたりの最大文字数. 制限がない場合は None.
+        talk.max_length.per_agent (int | None): 1日あたりの1エージェントの最大文字数. 制限がない場合は None.
+        talk.max_length.base_length (int | None): 1日あたりの1エージェントの最大文字数に含まない最低文字数. 制限がない場合は None.
         talk.max_skip (int): 1日あたりの1エージェントの最大スキップ回数.
         whisper.max_count.per_agent (int): 1日あたりの1エージェントの最大囁き回数.
         whisper.max_count.per_day (int): 1日あたりの全体の囁き回数.
-        whisper.max_length.per_talk (int): 1回のトークあたりの最大文字数.
-        whisper.max_length.per_agent (int): 1日あたりの1エージェントの最大文字数.
-        whisper.max_length.base_length (int): 1日あたりの1エージェントの最大文字数に含まない最低文字数.
+        whisper.max_length.per_talk (int | None): 1回のトークあたりの最大文字数. 制限がない場合は None.
+        whisper.max_length.per_agent (int | None): 1日あたりの1エージェントの最大文字数. 制限がない場合は None.
+        whisper.max_length.base_length (int | None): 1日あたりの1エージェントの最大文字数に含まない最低文字数. 制限がない場合は None.
         whisper.max_skip (int): 1日あたりの1エージェントの最大スキップ回数.
         vote.max_count (int): 1位タイの場合の最大再投票回数.
         attack_vote.max_count (int): 1位タイの場合の最大襲撃再投票回数.
@@ -103,6 +103,10 @@ class Setting:
 
     @staticmethod
     def from_dict(obj: Any) -> Setting:  # noqa: ANN401
+        def parse_optional_int(obj: dict, key: str) -> int | None:
+            value = obj.get(key)
+            return int(value) if value is not None else None
+
         _agent_count = int(obj.get("agentCount"))
         _role_num_map = {Role(k): int(v) for k, v in obj.get("roleNumMap").items()}
         _vote_visibility = bool(obj.get("voteVisibility"))
@@ -116,9 +120,9 @@ class Setting:
             per_day=int(talk_max_count_obj.get("perDay", 0)),
         )
         _talk_max_length = TalkMaxLength(
-            per_talk=int(talk_max_length_obj.get("perTalk", 0)),
-            per_agent=int(talk_max_length_obj.get("perAgent", 0)),
-            base_length=int(talk_max_length_obj.get("baseLength", 0)),
+            per_talk=parse_optional_int(talk_max_length_obj, "perTalk"),
+            per_agent=parse_optional_int(talk_max_length_obj, "perAgent"),
+            base_length=parse_optional_int(talk_max_length_obj, "baseLength"),
         )
         _talk = Talk(
             max_count=_talk_max_count,
@@ -134,9 +138,9 @@ class Setting:
             per_day=int(whisper_max_count_obj.get("perDay", 0)),
         )
         _whisper_max_length = WhisperMaxLength(
-            per_talk=int(whisper_max_length_obj.get("perTalk", 0)),
-            per_agent=int(whisper_max_length_obj.get("perAgent", 0)),
-            base_length=int(whisper_max_length_obj.get("baseLength", 0)),
+            per_talk=parse_optional_int(whisper_max_length_obj, "perTalk"),
+            per_agent=parse_optional_int(whisper_max_length_obj, "perAgent"),
+            base_length=parse_optional_int(whisper_max_length_obj, "baseLength"),
         )
         _whisper = Whisper(
             max_count=_whisper_max_count,

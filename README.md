@@ -20,7 +20,7 @@ print(packet.info.agent) # Agent[01]
 
 ## インストール方法
 
-```
+```bash
 python -m pip install aiwolf-nlp-common
 ```
 
@@ -28,7 +28,7 @@ python -m pip install aiwolf-nlp-common
 
 パッケージ管理ツールとしてuvの使用を推奨します。
 
-```
+```bash
 git clone https://github.com/aiwolfdial/aiwolf-nlp-common.git
 cd aiwolf-nlp-common
 uv venv
@@ -37,7 +37,7 @@ uv sync
 
 ### パッケージのビルド
 
-```
+```bash
 uv build
 ```
 
@@ -45,16 +45,15 @@ uv build
 
 #### PyPI
 
-```
+```bash
 uv publish --token <PyPIのアクセストークン>
 ```
 
 #### TestPyPI
 
-```
+```bash
 uv publish --publish-url https://test.pypi.org/legacy/ --token <TestPyPIのアクセストークン>
 ```
-
 
 uvを使用しない場合については、パッケージ化と配布については下記のページを参考にしてください。  
 [Packaging and distributing projects](https://packaging.python.org/en/latest/guides/distributing-packages-using-setuptools/)

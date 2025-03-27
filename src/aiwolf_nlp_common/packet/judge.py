@@ -10,8 +10,8 @@ class Judge:
 
     Attributes:
         day (int): 判定が出た日数.
-        agent (str): 判定を出したエージェントのインデックス付き文字列.
-        target (str): 判定の対象となったエージェントのインデックス付き文字列.
+        agent (str): 判定を出したエージェントの名前.
+        target (str): 判定の対象となったエージェントの名前.
         result (Species): 判定結果.
     """
 

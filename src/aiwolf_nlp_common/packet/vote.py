@@ -8,8 +8,8 @@ class Vote:
 
     Attributes:
         day (int): 投票が行われた日数.
-        agent (str): 投票を行ったエージェントのインデックス付き文字列.
-        target (str): 投票の対象となったエージェントのインデックス付き文字列.
+        agent (str): 投票を行ったエージェントの名前.
+        target (str): 投票の対象となったエージェントの名前.
     """
 
     day: int

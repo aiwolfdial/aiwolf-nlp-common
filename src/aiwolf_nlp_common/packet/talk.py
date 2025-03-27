@@ -10,7 +10,7 @@ class Talk:
         idx (int): 会話のインデックス.
         day (int): 会話が行われた日数.
         turn (int): 会話が行われたターン数.
-        agent (str): 会話を行ったエージェントのインデックス付き文字列.
+        agent (str): 会話を行ったエージェントの名前.
         text (str): 会話の内容.
         skip (bool): 会話がスキップであるかどうか.
         over (bool): 会話がオーバーであるかどうか.

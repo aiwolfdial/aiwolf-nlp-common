@@ -87,8 +87,8 @@ class Setting:
         vote.max_count (int): 1位タイの場合の最大再投票回数.
         attack_vote.max_count (int): 1位タイの場合の最大襲撃再投票回数.
         attack_vote.allow_no_target (bool): 襲撃なしの日を許可するか.
-        timeout.action (int): エージェントのアクションのタイムアウト時間 (秒).
-        timeout.response (int): エージェントの生存確認のタイムアウト時間 (秒).
+        timeout.action (int): エージェントのアクションのタイムアウト時間 (ミリ秒).
+        timeout.response (int): エージェントの生存確認のタイムアウト時間 (ミリ秒).
     """  # noqa: E501
 
     agent_count: int
@@ -107,62 +107,62 @@ class Setting:
             value = obj.get(key)
             return int(value) if value is not None else None
 
-        _agent_count = int(obj.get("agentCount"))
-        _role_num_map = {Role(k): int(v) for k, v in obj.get("roleNumMap").items()}
-        _vote_visibility = bool(obj.get("voteVisibility"))
-        _talk_on_first_day = bool(obj.get("talkOnFirstDay"))
+        _agent_count = int(obj.get("agent_count"))
+        _role_num_map = {Role(k): int(v) for k, v in obj.get("role_num_map").items()}
+        _vote_visibility = bool(obj.get("vote_visibility"))
+        _talk_on_first_day = bool(obj.get("talk_on_first_day"))
 
         talk_obj = obj.get("talk", {})
-        talk_max_count_obj = talk_obj.get("maxCount", {})
-        talk_max_length_obj = talk_obj.get("maxLength", {})
+        talk_max_count_obj = talk_obj.get("max_count", {})
+        talk_max_length_obj = talk_obj.get("max_length", {})
         _talk_max_count = TalkMaxCount(
-            per_agent=int(talk_max_count_obj.get("perAgent", 0)),
-            per_day=int(talk_max_count_obj.get("perDay", 0)),
+            per_agent=int(talk_max_count_obj.get("per_agent", 0)),
+            per_day=int(talk_max_count_obj.get("per_day", 0)),
         )
         _talk_max_length = TalkMaxLength(
-            per_talk=parse_optional_int(talk_max_length_obj, "perTalk"),
-            per_agent=parse_optional_int(talk_max_length_obj, "perAgent"),
-            base_length=parse_optional_int(talk_max_length_obj, "baseLength"),
+            per_talk=parse_optional_int(talk_max_length_obj, "per_talk"),
+            per_agent=parse_optional_int(talk_max_length_obj, "per_agent"),
+            base_length=parse_optional_int(talk_max_length_obj, "base_length"),
         )
         _talk = Talk(
             max_count=_talk_max_count,
             max_length=_talk_max_length,
-            max_skip=int(talk_obj.get("maxSkip", 0)),
+            max_skip=int(talk_obj.get("max_skip", 0)),
         )
 
         whisper_obj = obj.get("whisper", {})
-        whisper_max_count_obj = whisper_obj.get("maxCount", {})
-        whisper_max_length_obj = whisper_obj.get("maxLength", {})
+        whisper_max_count_obj = whisper_obj.get("max_count", {})
+        whisper_max_length_obj = whisper_obj.get("max_length", {})
         _whisper_max_count = WhisperMaxCount(
-            per_agent=int(whisper_max_count_obj.get("perAgent", 0)),
-            per_day=int(whisper_max_count_obj.get("perDay", 0)),
+            per_agent=int(whisper_max_count_obj.get("per_agent", 0)),
+            per_day=int(whisper_max_count_obj.get("per_day", 0)),
         )
         _whisper_max_length = WhisperMaxLength(
-            per_talk=parse_optional_int(whisper_max_length_obj, "perTalk"),
-            per_agent=parse_optional_int(whisper_max_length_obj, "perAgent"),
-            base_length=parse_optional_int(whisper_max_length_obj, "baseLength"),
+            per_talk=parse_optional_int(whisper_max_length_obj, "per_talk"),
+            per_agent=parse_optional_int(whisper_max_length_obj, "per_agent"),
+            base_length=parse_optional_int(whisper_max_length_obj, "base_length"),
         )
         _whisper = Whisper(
             max_count=_whisper_max_count,
             max_length=_whisper_max_length,
-            max_skip=int(whisper_obj.get("maxSkip", 0)),
+            max_skip=int(whisper_obj.get("max_skip", 0)),
         )
 
         vote_obj = obj.get("vote", {})
         _vote = Vote(
-            max_count=int(vote_obj.get("maxCount", 0)),
+            max_count=int(vote_obj.get("max_count", 0)),
         )
 
-        attack_vote_obj = obj.get("attackVote", {})
+        attack_vote_obj = obj.get("attack_vote", {})
         _attack_vote = AttackVote(
-            max_count=int(attack_vote_obj.get("maxCount", 0)),
-            allow_no_target=bool(attack_vote_obj.get("allowNoTarget", False)),
+            max_count=int(attack_vote_obj.get("max_count", 0)),
+            allow_no_target=bool(attack_vote_obj.get("allow_no_target", False)),
         )
 
         timeout_obj = obj.get("timeout", {})
         _timeout = Timeout(
-            action=int(timeout_obj.get("action", 0)) // 1000,
-            response=int(timeout_obj.get("response", 0)) // 1000,
+            action=int(timeout_obj.get("action", 0)),
+            response=int(timeout_obj.get("response", 0)),
         )
         return Setting(
             _agent_count,

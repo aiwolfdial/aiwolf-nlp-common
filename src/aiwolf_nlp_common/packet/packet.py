@@ -37,13 +37,13 @@ class Packet:
             else None
         )
         _talk_history = (
-            [Talk.from_dict(y) for y in obj.get("talkHistory")]
-            if obj.get("talkHistory") is not None
+            [Talk.from_dict(y) for y in obj.get("talk_history")]
+            if obj.get("talk_history") is not None
             else None
         )
         _whisper_history = (
-            [Talk.from_dict(y) for y in obj.get("whisperHistory")]
-            if obj.get("whisperHistory") is not None
+            [Talk.from_dict(y) for y in obj.get("whisper_history")]
+            if obj.get("whisper_history") is not None
             else None
         )
         return Packet(_request, _info, _setting, _talk_history, _whisper_history)

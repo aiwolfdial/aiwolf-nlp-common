@@ -14,7 +14,9 @@ class TalkMaxCount:
 
 @dataclass
 class TalkMaxLength:
+    count_in_word: bool | None
     per_talk: int | None
+    mention_length: int | None
     per_agent: int | None
     base_length: int | None
 
@@ -34,7 +36,9 @@ class WhisperMaxCount:
 
 @dataclass
 class WhisperMaxLength:
+    count_in_word: bool | None
     per_talk: int | None
+    mention_length: int | None
     per_agent: int | None
     base_length: int | None
 
@@ -74,13 +78,17 @@ class Setting:
         talk_on_first_day (bool): 1日目の発言を許可するか.
         talk.max_count.per_agent (int): 1日あたりの1エージェントの最大発言回数.
         talk.max_count.per_day (int): 1日あたりの全体の発言回数.
+        talk.max_length.count_in_word (bool | None): 単語数でカウントするか. 設定されない場合は None.
         talk.max_length.per_talk (int | None): 1回のトークあたりの最大文字数. 制限がない場合は None.
+        talk.max_length.mention_length (int | None): 1回のトークあたりのメンションを含む場合の追加文字数. per_talk の制限がない場合は None.
         talk.max_length.per_agent (int | None): 1日あたりの1エージェントの最大文字数. 制限がない場合は None.
         talk.max_length.base_length (int | None): 1日あたりの1エージェントの最大文字数に含まない最低文字数. 制限がない場合は None.
         talk.max_skip (int): 1日あたりの1エージェントの最大スキップ回数.
         whisper.max_count.per_agent (int): 1日あたりの1エージェントの最大囁き回数.
         whisper.max_count.per_day (int): 1日あたりの全体の囁き回数.
+        whisper.max_length.count_in_word (bool | None): 単語数でカウントするか. 設定されない場合は None.
         whisper.max_length.per_talk (int | None): 1回のトークあたりの最大文字数. 制限がない場合は None.
+        whisper.max_length.mention_length (int | None): 1回のトークあたりのメンションを含む場合の追加文字数. per_talk の制限がない場合は None.
         whisper.max_length.per_agent (int | None): 1日あたりの1エージェントの最大文字数. 制限がない場合は None.
         whisper.max_length.base_length (int | None): 1日あたりの1エージェントの最大文字数に含まない最低文字数. 制限がない場合は None.
         whisper.max_skip (int): 1日あたりの1エージェントの最大スキップ回数.
@@ -103,6 +111,10 @@ class Setting:
 
     @staticmethod
     def from_dict(obj: Any) -> Setting:  # noqa: ANN401
+        def parse_optional_bool(obj: dict, key: str) -> bool | None:
+            value = obj.get(key)
+            return bool(value) if value is not None else None
+
         def parse_optional_int(obj: dict, key: str) -> int | None:
             value = obj.get(key)
             return int(value) if value is not None else None
@@ -120,7 +132,9 @@ class Setting:
             per_day=int(talk_max_count_obj.get("per_day", 0)),
         )
         _talk_max_length = TalkMaxLength(
+            count_in_word=parse_optional_bool(talk_max_length_obj, "count_in_word"),
             per_talk=parse_optional_int(talk_max_length_obj, "per_talk"),
+            mention_length=parse_optional_int(talk_max_length_obj, "mention_length"),
             per_agent=parse_optional_int(talk_max_length_obj, "per_agent"),
             base_length=parse_optional_int(talk_max_length_obj, "base_length"),
         )
@@ -138,7 +152,9 @@ class Setting:
             per_day=int(whisper_max_count_obj.get("per_day", 0)),
         )
         _whisper_max_length = WhisperMaxLength(
+            count_in_word=parse_optional_bool(whisper_max_length_obj, "count_in_word"),
             per_talk=parse_optional_int(whisper_max_length_obj, "per_talk"),
+            mention_length=parse_optional_int(whisper_max_length_obj, "mention_length"),
             per_agent=parse_optional_int(whisper_max_length_obj, "per_agent"),
             base_length=parse_optional_int(whisper_max_length_obj, "base_length"),
         )

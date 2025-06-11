@@ -53,11 +53,13 @@ class Whisper:
 @dataclass
 class Vote:
     max_count: int
+    allow_self_vote: bool
 
 
 @dataclass
 class AttackVote:
     max_count: int
+    allow_self_vote: bool
     allow_no_target: bool
 
 
@@ -73,9 +75,9 @@ class Setting:
 
     Attributes:
         agent_count (int): ゲームのプレイヤー数.
+        max_day (int | None): ゲーム内の最大日数. 制限がない場合は None.
         role_num_map (dict[Role, int]): 各役職の人数を示すマップ.
         vote_visibility (bool): 投票の結果を公開するか.
-        talk_on_first_day (bool): 1日目の発言を許可するか.
         talk.max_count.per_agent (int): 1日あたりの1エージェントの最大発言回数.
         talk.max_count.per_day (int): 1日あたりの全体の発言回数.
         talk.max_length.count_in_word (bool | None): 単語数でカウントするか. 設定されない場合は None.
@@ -93,16 +95,18 @@ class Setting:
         whisper.max_length.base_length (int | None): 1日あたりの1エージェントの最大文字数に含まない最低文字数. 制限がない場合は None.
         whisper.max_skip (int): 1日あたりの1エージェントの最大スキップ回数.
         vote.max_count (int): 1位タイの場合の最大再投票回数.
+        vote.allow_self_vote (bool): 自己投票を許可するか.
         attack_vote.max_count (int): 1位タイの場合の最大襲撃再投票回数.
+        attack_vote.allow_self_vote (bool): 自己投票を許可するか.
         attack_vote.allow_no_target (bool): 襲撃なしの日を許可するか.
         timeout.action (int): エージェントのアクションのタイムアウト時間 (ミリ秒).
         timeout.response (int): エージェントの生存確認のタイムアウト時間 (ミリ秒).
     """  # noqa: E501
 
     agent_count: int
+    max_day: int | None
     role_num_map: dict[Role, int]
     vote_visibility: bool
-    talk_on_first_day: bool
     talk: Talk
     whisper: Whisper
     vote: Vote
@@ -120,9 +124,9 @@ class Setting:
             return int(value) if value is not None else None
 
         _agent_count = int(obj.get("agent_count"))
+        _max_day = parse_optional_int(obj, "max_day")
         _role_num_map = {Role(k): int(v) for k, v in obj.get("role_num_map").items()}
         _vote_visibility = bool(obj.get("vote_visibility"))
-        _talk_on_first_day = bool(obj.get("talk_on_first_day"))
 
         talk_obj = obj.get("talk", {})
         talk_max_count_obj = talk_obj.get("max_count", {})
@@ -167,11 +171,13 @@ class Setting:
         vote_obj = obj.get("vote", {})
         _vote = Vote(
             max_count=int(vote_obj.get("max_count", 0)),
+            allow_self_vote=bool(vote_obj.get("allow_self_vote", False)),
         )
 
         attack_vote_obj = obj.get("attack_vote", {})
         _attack_vote = AttackVote(
             max_count=int(attack_vote_obj.get("max_count", 0)),
+            allow_self_vote=bool(attack_vote_obj.get("allow_self_vote", False)),
             allow_no_target=bool(attack_vote_obj.get("allow_no_target", False)),
         )
 
@@ -182,9 +188,9 @@ class Setting:
         )
         return Setting(
             _agent_count,
+            _max_day,
             _role_num_map,
             _vote_visibility,
-            _talk_on_first_day,
             _talk,
             _whisper,
             _vote,

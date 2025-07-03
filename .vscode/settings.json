@@ -10,6 +10,7 @@
         "nwatanabe",
         "pkey",
         "pydocstyle",
+        "pyright",
         "pytest",
         "pythonpath",
         "revote",

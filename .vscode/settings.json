@@ -11,8 +11,10 @@
         "pkey",
         "pydocstyle",
         "pytest",
+        "pythonpath",
         "revote",
         "setuptools",
+        "testpaths",
         "ysahashi"
     ]
 }

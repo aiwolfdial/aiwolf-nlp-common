@@ -1,3 +1,5 @@
+# ruff: noqa: D102, ANN401
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -48,38 +50,16 @@ class Info:
     remain_skip: int | None = None
 
     @staticmethod
-    def from_dict(obj: Any) -> Info:  # noqa: ANN401
+    def from_dict(obj: Any) -> Info:
         _game_id = str(obj.get("game_id"))
         _day = int(obj.get("day"))
         _agent = str(obj.get("agent"))
-        _profile = (
-            str(obj.get("profile")) if obj.get("profile") is not None else None
-        )
-        _medium_result = (
-            Judge.from_dict(obj.get("medium_result"))
-            if obj.get("medium_result") is not None
-            else None
-        )
-        _divine_result = (
-            Judge.from_dict(obj.get("divine_result"))
-            if obj.get("divine_result") is not None
-            else None
-        )
-        _executed_agent = (
-            str(obj.get("executed_agent"))
-            if obj.get("executed_agent") is not None
-            else None
-        )
-        _attacked_agent = (
-            str(obj.get("attacked_agent"))
-            if obj.get("attacked_agent") is not None
-            else None
-        )
-        _vote_list = (
-            [Vote.from_dict(y) for y in obj.get("vote_list")]
-            if obj.get("vote_list") is not None
-            else None
-        )
+        _profile = str(obj.get("profile")) if obj.get("profile") is not None else None
+        _medium_result = Judge.from_dict(obj.get("medium_result")) if obj.get("medium_result") is not None else None
+        _divine_result = Judge.from_dict(obj.get("divine_result")) if obj.get("divine_result") is not None else None
+        _executed_agent = str(obj.get("executed_agent")) if obj.get("executed_agent") is not None else None
+        _attacked_agent = str(obj.get("attacked_agent")) if obj.get("attacked_agent") is not None else None
+        _vote_list = [Vote.from_dict(y) for y in obj.get("vote_list")] if obj.get("vote_list") is not None else None
         _attack_vote_list = (
             [Vote.from_dict(y) for y in obj.get("attack_vote_list")]
             if obj.get("attack_vote_list") is not None
@@ -87,8 +67,8 @@ class Info:
         )
         _status_map = {k: Status(v) for k, v in obj.get("status_map").items()}
         _role_map = {k: Role(v) for k, v in obj.get("role_map").items()}
-        _remain_count = int(obj.get("remain_count")) if obj.get("remain_count") is not None else None  # noqa: E501
-        _remain_length = int(obj.get("remain_length")) if obj.get("remain_length") is not None else None  # noqa: E501
+        _remain_count = int(obj.get("remain_count")) if obj.get("remain_count") is not None else None
+        _remain_length = int(obj.get("remain_length")) if obj.get("remain_length") is not None else None
         _remain_skip = int(obj.get("remain_skip")) if obj.get("remain_skip") is not None else None
         return Info(
             _game_id,

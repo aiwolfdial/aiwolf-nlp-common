@@ -1,3 +1,5 @@
+# ruff: noqa: D103, S101, INP001, PLR2004
+
 import json
 
 from aiwolf_nlp_common.packet.role import Role

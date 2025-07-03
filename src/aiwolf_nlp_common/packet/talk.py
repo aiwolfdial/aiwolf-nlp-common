@@ -1,3 +1,5 @@
+# ruff: noqa: D102, ANN401
+
 from dataclasses import dataclass
 from typing import Any
 
@@ -25,7 +27,7 @@ class Talk:
     over: bool = False
 
     @staticmethod
-    def from_dict(obj: Any) -> "Talk":  # noqa: ANN401
+    def from_dict(obj: Any) -> "Talk":
         _idx = int(obj.get("idx"))
         _day = int(obj.get("day"))
         _turn = int(obj.get("turn"))

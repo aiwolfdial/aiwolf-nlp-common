@@ -33,4 +33,20 @@ Homepage = "https://aiwolfdial.github.io/aiwolf-nlp/"
 
 [dependency-groups]
 dev = ["build>=1.2.2.post1", "pytest>=8.3.3", "twine>=5.1.1"]
-lint = ["ruff>=0.7.4"]
+lint = ["ruff>=0.12.1"]
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = ["D100", "D104"]
+unfixable = ["F401", "F841"]
+pydocstyle.convention = "google"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

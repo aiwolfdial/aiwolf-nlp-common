@@ -6,7 +6,13 @@
     "python.testing.pytestEnabled": true,
     "cSpell.words": [
         "aiwolf",
+        "aiwolfdial",
+        "nwatanabe",
         "pkey",
-        "revote"
+        "pydocstyle",
+        "pytest",
+        "revote",
+        "setuptools",
+        "ysahashi"
     ]
 }

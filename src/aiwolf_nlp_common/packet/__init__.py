@@ -7,3 +7,17 @@ from .setting import Setting
 from .status import Status
 from .talk import Talk
 from .vote import Vote
+
+__all__ = [
+    "Info",
+    "Judge",
+    "Packet",
+    "Request",
+    "Role",
+    "Setting",
+    "Species",
+    "Status",
+    "Talk",
+    "Team",
+    "Vote",
+]

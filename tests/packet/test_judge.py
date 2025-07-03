@@ -1,3 +1,5 @@
+# ruff: noqa: D103, S101, INP001
+
 import json
 
 from aiwolf_nlp_common.packet.judge import Judge

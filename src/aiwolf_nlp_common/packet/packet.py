@@ -1,3 +1,5 @@
+# ruff: noqa: D102, ANN401
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -28,22 +30,14 @@ class Packet:
     whisper_history: list[Talk] | None
 
     @staticmethod
-    def from_dict(obj: Any) -> Packet:  # noqa: ANN401
+    def from_dict(obj: Any) -> Packet:
         _request = Request(str(obj.get("request")))
         _info = Info.from_dict(obj.get("info")) if obj.get("info") is not None else None
-        _setting = (
-            Setting.from_dict(obj.get("setting"))
-            if obj.get("setting") is not None
-            else None
-        )
+        _setting = Setting.from_dict(obj.get("setting")) if obj.get("setting") is not None else None
         _talk_history = (
-            [Talk.from_dict(y) for y in obj.get("talk_history")]
-            if obj.get("talk_history") is not None
-            else None
+            [Talk.from_dict(y) for y in obj.get("talk_history")] if obj.get("talk_history") is not None else None
         )
         _whisper_history = (
-            [Talk.from_dict(y) for y in obj.get("whisper_history")]
-            if obj.get("whisper_history") is not None
-            else None
+            [Talk.from_dict(y) for y in obj.get("whisper_history")] if obj.get("whisper_history") is not None else None
         )
         return Packet(_request, _info, _setting, _talk_history, _whisper_history)

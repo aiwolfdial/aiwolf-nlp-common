@@ -13,9 +13,9 @@ class Client:
     """対戦サーバーとの通信を行うクライアントクラス.
 
     Attributes:
-        url (str): 対戦サーバーのURL.
-        token (str | None): 対戦サーバーに接続するためのトークン.
         socket (websocket.WebSocket): WebSocketクライアント.
+        url (str): 対戦サーバーのURL.
+        headers (list[str]): WebSocket接続時のヘッダー情報.
 
     Args:
         url (str): 対戦サーバーのURL.
@@ -32,20 +32,24 @@ class Client:
     """
 
     def __init__(self, url: str, token: str | None) -> None:
+        """クライアントを初期化します.
+
+        Args:
+            url (str): 対戦サーバーのURL.
+            token (str | None): 対戦サーバーに接続するためのトークン. デフォルトは None.
+        """
         super().__init__()
-        websocket.enableTrace(traceable=False)
         self.socket = websocket.WebSocket()
         self.url = url
         self.headers = [
             f"User-Agent: aiwolf-nlp-common/{_version.__version__} Python/{sys.version}",
         ]
         if token is not None:
-            self.token = token
-            self.headers.append(f"Authorization: Bearer {self.token}")
+            self.headers.append(f"Authorization: Bearer {token}")
 
     def connect(self) -> None:
         """対戦サーバーに接続します."""
-        self.socket.connect(
+        self.socket.connect(  # type: ignore[arg-type]
             self.url,
             header=self.headers,
         )
@@ -58,10 +62,7 @@ class Client:
         """
         resp = self.socket.recv()
         resp_str = ""
-        if isinstance(resp, (bytes, bytearray, memoryview)):
-            resp_str = bytes(resp).decode("utf-8")
-        else:
-            resp_str = resp
+        resp_str = bytes(resp).decode("utf-8") if isinstance(resp, (bytes, bytearray, memoryview)) else resp
         resp_dict = json.loads(resp_str)
         return Packet.from_dict(resp_dict)
 

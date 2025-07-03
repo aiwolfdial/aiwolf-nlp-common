@@ -1,3 +1,5 @@
+# ruff: noqa: D102, ANN401
+
 from dataclasses import dataclass
 from typing import Any
 
@@ -17,7 +19,7 @@ class Vote:
     target: str
 
     @staticmethod
-    def from_dict(obj: Any) -> "Vote":  # noqa: ANN401
+    def from_dict(obj: Any) -> "Vote":
         _day = int(obj.get("day"))
         _agent = str(obj.get("agent"))
         _target = str(obj.get("target"))

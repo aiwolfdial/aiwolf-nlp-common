@@ -1,3 +1,5 @@
+# ruff: noqa: D102
+
 from enum import Enum
 
 

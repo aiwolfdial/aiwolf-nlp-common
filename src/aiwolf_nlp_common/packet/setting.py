@@ -1,3 +1,5 @@
+# ruff: noqa: D101, D102, ANN401
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -114,12 +116,12 @@ class Setting:
     timeout: Timeout
 
     @staticmethod
-    def from_dict(obj: Any) -> Setting:  # noqa: ANN401
-        def parse_optional_bool(obj: dict, key: str) -> bool | None:
+    def from_dict(obj: Any) -> Setting:
+        def parse_optional_bool(obj: dict[str, Any], key: str) -> bool | None:
             value = obj.get(key)
             return bool(value) if value is not None else None
 
-        def parse_optional_int(obj: dict, key: str) -> int | None:
+        def parse_optional_int(obj: dict[str, Any], key: str) -> int | None:
             value = obj.get(key)
             return int(value) if value is not None else None
 

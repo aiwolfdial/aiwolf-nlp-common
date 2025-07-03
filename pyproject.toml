@@ -18,16 +18,6 @@ readme = "README.md"
 license = { file = "LICENSE" }
 keywords = ["aiwolf"]
 
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
-
-[tool.setuptools.dynamic]
-version = { attr = "aiwolf_nlp_common._version.__version__" }
-
-[tool.hatch]
-version.path = "src/aiwolf_nlp_common/_version.py"
-
 [project.urls]
 Homepage = "https://aiwolfdial.github.io/aiwolf-nlp/"
 
@@ -39,6 +29,20 @@ dev = [
   "twine>=5.1.1",
 ]
 lint = ["ruff>=0.12.1"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch]
+version.path = "src/aiwolf_nlp_common/_version.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["typings"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
 
 [tool.ruff]
 line-length = 120
@@ -55,6 +59,5 @@ pydocstyle.convention = "google"
 [tool.ruff.lint.per-file-ignores]
 "**/typings/*" = ["ALL"]
 
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-pythonpath = ["src"]
+[tool.setuptools.dynamic]
+version = { attr = "aiwolf_nlp_common._version.__version__" }

@@ -38,7 +38,7 @@ build-backend = "hatchling.build"
 version.path = "src/aiwolf_nlp_common/_version.py"
 
 [tool.hatch.build.targets.wheel]
-packages = ["typings"]
+include = ["src/aiwolf_nlp_common", "typings"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

@@ -39,6 +39,7 @@ uv sync
 ### パッケージのビルド
 
 ```bash
+pyright --createstub aiwolf_nlp_common
 uv build
 ```
 

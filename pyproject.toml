@@ -2,7 +2,7 @@
 name = "aiwolf-nlp-common"
 dynamic = ["version"]
 dependencies = ["websocket-client>=1.8.0"]
-requires-python = ">=3.8"
+requires-python = ">=3.11"
 authors = [
   { name = "aiwolfdial", email = "aiwolf@kanolab.net" },
   { name = "nwatanabe", email = "nwatanabe@kanolab.net" },
@@ -38,7 +38,7 @@ build-backend = "hatchling.build"
 version.path = "src/aiwolf_nlp_common/_version.py"
 
 [tool.hatch.build.targets.wheel]
-include = ["src/aiwolf_nlp_common", "typings"]
+packages = ["src/aiwolf_nlp_common"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -57,7 +57,7 @@ unfixable = ["F401", "F841"]
 pydocstyle.convention = "google"
 
 [tool.ruff.lint.per-file-ignores]
-"**/typings/*" = ["ALL"]
+"*.pyi" = ["ALL"]
 
 [tool.setuptools.dynamic]
 version = { attr = "aiwolf_nlp_common._version.__version__" }

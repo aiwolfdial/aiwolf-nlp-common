@@ -17,6 +17,7 @@ class TalkMaxCount:
 @dataclass
 class TalkMaxLength:
     count_in_word: bool | None
+    count_spaces: bool | None
     per_talk: int | None
     mention_length: int | None
     per_agent: int | None
@@ -39,6 +40,7 @@ class WhisperMaxCount:
 @dataclass
 class WhisperMaxLength:
     count_in_word: bool | None
+    count_spaces: bool | None
     per_talk: int | None
     mention_length: int | None
     per_agent: int | None
@@ -83,6 +85,7 @@ class Setting:
         talk.max_count.per_agent (int): 1日あたりの1エージェントの最大発言回数.
         talk.max_count.per_day (int): 1日あたりの全体の発言回数.
         talk.max_length.count_in_word (bool | None): 単語数でカウントするか. 設定されない場合は None.
+        talk.max_length.count_spaces (bool | None): 文字数カウントの際に空白を含めてカウントするか. 設定されない場合は None.
         talk.max_length.per_talk (int | None): 1回のトークあたりの最大文字数. 制限がない場合は None.
         talk.max_length.mention_length (int | None): 1回のトークあたりのメンションを含む場合の追加文字数. per_talk の制限がない場合は None.
         talk.max_length.per_agent (int | None): 1日あたりの1エージェントの最大文字数. 制限がない場合は None.
@@ -91,6 +94,7 @@ class Setting:
         whisper.max_count.per_agent (int): 1日あたりの1エージェントの最大囁き回数.
         whisper.max_count.per_day (int): 1日あたりの全体の囁き回数.
         whisper.max_length.count_in_word (bool | None): 単語数でカウントするか. 設定されない場合は None.
+        whisper.max_length.count_spaces (bool | None): 文字数カウントの際に空白を含めてカウントするか. 設定されない場合は None.
         whisper.max_length.per_talk (int | None): 1回のトークあたりの最大文字数. 制限がない場合は None.
         whisper.max_length.mention_length (int | None): 1回のトークあたりのメンションを含む場合の追加文字数. per_talk の制限がない場合は None.
         whisper.max_length.per_agent (int | None): 1日あたりの1エージェントの最大文字数. 制限がない場合は None.
@@ -139,6 +143,7 @@ class Setting:
         )
         _talk_max_length = TalkMaxLength(
             count_in_word=parse_optional_bool(talk_max_length_obj, "count_in_word"),
+            count_spaces=parse_optional_bool(talk_max_length_obj, "count_spaces"),
             per_talk=parse_optional_int(talk_max_length_obj, "per_talk"),
             mention_length=parse_optional_int(talk_max_length_obj, "mention_length"),
             per_agent=parse_optional_int(talk_max_length_obj, "per_agent"),
@@ -159,6 +164,7 @@ class Setting:
         )
         _whisper_max_length = WhisperMaxLength(
             count_in_word=parse_optional_bool(whisper_max_length_obj, "count_in_word"),
+            count_spaces=parse_optional_bool(whisper_max_length_obj, "count_spaces"),
             per_talk=parse_optional_int(whisper_max_length_obj, "per_talk"),
             mention_length=parse_optional_int(whisper_max_length_obj, "mention_length"),
             per_agent=parse_optional_int(whisper_max_length_obj, "per_agent"),

@@ -17,7 +17,7 @@ print(packet.request) # Request.INITIALIZE
 ```
 
 詳細については下記のプロトコルの説明やゲームサーバのソースコードを参考にしてください。\
-[プロトコルの実装について](https://github.com/aiwolfdial/aiwolf-nlp-server/blob/main/doc/protocol.md)
+[プロトコルの実装について](https://github.com/aiwolfdial/aiwolf-nlp-server/blob/main/doc/ja/config.md)
 
 ## インストール方法
 

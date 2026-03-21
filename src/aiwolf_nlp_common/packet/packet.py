@@ -21,6 +21,8 @@ class Packet:
         setting (Setting | None): ゲームの設定情報.
         talk_history (list[Talk] | None): トークの履歴を示す情報.
         whisper_history (list[Talk] | None): 囁きの履歴を示す情報.
+        new_talk (Talk | None): 新着トーク (TALK_BROADCAST用).
+        new_whisper (Talk | None): 新着囁き (WHISPER_BROADCAST用).
     """
 
     request: Request
@@ -28,6 +30,8 @@ class Packet:
     setting: Setting | None
     talk_history: list[Talk] | None
     whisper_history: list[Talk] | None
+    new_talk: Talk | None = None
+    new_whisper: Talk | None = None
 
     @staticmethod
     def from_dict(obj: Any) -> Packet:
@@ -40,4 +44,6 @@ class Packet:
         _whisper_history = (
             [Talk.from_dict(y) for y in obj.get("whisper_history")] if obj.get("whisper_history") is not None else None
         )
-        return Packet(_request, _info, _setting, _talk_history, _whisper_history)
+        _new_talk = Talk.from_dict(obj.get("new_talk")) if obj.get("new_talk") is not None else None
+        _new_whisper = Talk.from_dict(obj.get("new_whisper")) if obj.get("new_whisper") is not None else None
+        return Packet(_request, _info, _setting, _talk_history, _whisper_history, _new_talk, _new_whisper)

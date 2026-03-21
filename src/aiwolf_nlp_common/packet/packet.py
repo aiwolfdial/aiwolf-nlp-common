@@ -21,8 +21,8 @@ class Packet:
         setting (Setting | None): ゲームの設定情報.
         talk_history (list[Talk] | None): トークの履歴を示す情報.
         whisper_history (list[Talk] | None): 囁きの履歴を示す情報.
-        new_talk (Talk | None): 新着トーク（TALK_BROADCAST用）.
-        new_whisper (Talk | None): 新着囁き（WHISPER_BROADCAST用）.
+        new_talk (Talk | None): 新着トーク (TALK_BROADCAST用).
+        new_whisper (Talk | None): 新着囁き (WHISPER_BROADCAST用).
     """
 
     request: Request

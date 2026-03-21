@@ -30,7 +30,7 @@ jobs:
       
       - name: Generate type stubs
         run: |
-          uv run pyright --createstub aiwolf_nlp_common
+          uv run --with mypy stubgen -p aiwolf_nlp_common -o src
       
       - name: Build package
         run: |

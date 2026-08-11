@@ -1,10 +1,3 @@
-from dataclasses import dataclass
-from typing import Any
+from aiwolf_nlp_common.packet._models import Vote as Vote
 
-@dataclass
-class Vote:
-    day: int
-    agent: str
-    target: str
-    @staticmethod
-    def from_dict(obj: Any) -> Vote: ...
+__all__ = ['Vote']

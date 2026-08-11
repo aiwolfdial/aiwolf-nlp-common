@@ -1,14 +1,3 @@
-from dataclasses import dataclass
-from typing import Any
+from aiwolf_nlp_common.packet._models import Talk as Talk
 
-@dataclass
-class Talk:
-    idx: int
-    day: int
-    turn: int
-    agent: str
-    text: str
-    skip: bool = ...
-    over: bool = ...
-    @staticmethod
-    def from_dict(obj: Any) -> Talk: ...
+__all__ = ['Talk']

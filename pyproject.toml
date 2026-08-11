@@ -1,7 +1,7 @@
 [project]
 name = "aiwolf-nlp-common"
 dynamic = ["version"]
-dependencies = ["websocket-client>=1.8.0"]
+dependencies = ["websocket-client>=1.8.0", "msgspec>=0.19.0"]
 requires-python = ">=3.11"
 authors = [
   { name = "aiwolfdial", email = "aiwolf@kanolab.net" },
@@ -46,6 +46,8 @@ pythonpath = ["src"]
 
 [tool.ruff]
 line-length = 120
+# 生成物の整形は生成器 (datamodel-code-generator) が行う
+extend-exclude = ["src/aiwolf_nlp_common/packet/_models.py", "*.pyi"]
 
 [tool.ruff.format]
 docstring-code-format = true
@@ -56,8 +58,6 @@ ignore = ["D100", "D104"]
 unfixable = ["F401", "F841"]
 pydocstyle.convention = "google"
 
-[tool.ruff.lint.per-file-ignores]
-"*.pyi" = ["ALL"]
 
 [tool.setuptools.dynamic]
 version = { attr = "aiwolf_nlp_common._version.__version__" }

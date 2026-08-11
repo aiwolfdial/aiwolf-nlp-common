@@ -1,21 +1,3 @@
-from enum import Enum
+from aiwolf_nlp_common.packet._models import Role as Role, Species as Species, Team as Team
 
-class Team(str, Enum):
-    VILLAGER = 'VILLAGER'
-    WEREWOLF = 'WEREWOLF'
-
-class Species(str, Enum):
-    HUMAN = 'HUMAN'
-    WEREWOLF = 'WEREWOLF'
-
-class Role(str, Enum):
-    WEREWOLF = 'WEREWOLF'
-    POSSESSED = 'POSSESSED'
-    SEER = 'SEER'
-    BODYGUARD = 'BODYGUARD'
-    VILLAGER = 'VILLAGER'
-    MEDIUM = 'MEDIUM'
-    @property
-    def team(self) -> Team: ...
-    @property
-    def species(self) -> Species: ...
+__all__ = ['Role', 'Species', 'Team']

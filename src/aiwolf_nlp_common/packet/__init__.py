@@ -1,3 +1,5 @@
+"""ゲームサーバとやり取りするパケットの構造."""
+
 from .info import Info
 from .judge import Judge
 from .packet import Packet

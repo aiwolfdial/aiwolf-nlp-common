@@ -1,0 +1,49 @@
+name: Schema Check
+
+# src/aiwolf_nlp_common/packet/_models.py は aiwolf-nlp-server の
+# schema/protocol.schema.json から生成されます。
+# 参照するサーバのリビジョンは .schema-ref に固定されています。
+
+on:
+  push:
+    branches:
+      - "**"
+  pull_request:
+
+jobs:
+  schema:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Read pinned server ref
+        id: pin
+        run: echo "ref=$(tr -d '[:space:]' < .schema-ref)" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout aiwolf-nlp-server
+        uses: actions/checkout@v4
+        with:
+          repository: aiwolfdial/aiwolf-nlp-server
+          ref: ${{ steps.pin.outputs.ref }}
+          path: .schema-src
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          version: "latest"
+
+      - name: Check packet definitions match the schema
+        working-directory: .schema-src
+        run: >
+          ./schema/generate.sh --check python
+          "${{ github.workspace }}/src/aiwolf_nlp_common/packet"
+
+      - name: Lint
+        run: |
+          uv run ruff check src/
+          uv run ruff format --check src/
+
+      - name: Test
+        run: uv run --with pytest pytest -q

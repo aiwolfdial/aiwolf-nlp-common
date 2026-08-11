@@ -1,20 +1,3 @@
-from enum import StrEnum
+from aiwolf_nlp_common.packet._models import Request as Request
 
-class Request(StrEnum):
-    NAME = 'NAME'
-    TALK = 'TALK'
-    WHISPER = 'WHISPER'
-    VOTE = 'VOTE'
-    DIVINE = 'DIVINE'
-    GUARD = 'GUARD'
-    ATTACK = 'ATTACK'
-    INITIALIZE = 'INITIALIZE'
-    DAILY_INITIALIZE = 'DAILY_INITIALIZE'
-    DAILY_FINISH = 'DAILY_FINISH'
-    FINISH = 'FINISH'
-    TALK_PHASE_START = 'TALK_PHASE_START'
-    TALK_PHASE_END = 'TALK_PHASE_END'
-    TALK_BROADCAST = 'TALK_BROADCAST'
-    WHISPER_PHASE_START = 'WHISPER_PHASE_START'
-    WHISPER_PHASE_END = 'WHISPER_PHASE_END'
-    WHISPER_BROADCAST = 'WHISPER_BROADCAST'
+__all__ = ['Request']

@@ -1,5 +1,3 @@
-from enum import Enum
+from aiwolf_nlp_common.packet._models import Status as Status
 
-class Status(str, Enum):
-    ALIVE = 'ALIVE'
-    DEAD = 'DEAD'
+__all__ = ['Status']

@@ -16,6 +16,7 @@ class Talk:
         text (str): 会話の内容.
         skip (bool): 会話がスキップであるかどうか.
         over (bool): 会話がオーバーであるかどうか.
+        time (int): 会話が行われた時刻 (Unix ミリ秒).
     """
 
     idx: int
@@ -25,6 +26,7 @@ class Talk:
     text: str
     skip: bool = False
     over: bool = False
+    time: int = 0
 
     @staticmethod
     def from_dict(obj: Any) -> "Talk":
@@ -35,4 +37,5 @@ class Talk:
         _text = str(obj.get("text"))
         _skip = bool(obj.get("skip"))
         _over = bool(obj.get("over"))
-        return Talk(_idx, _day, _turn, _agent, _text, _skip, _over)
+        _time = int(obj.get("time", 0))
+        return Talk(_idx, _day, _turn, _agent, _text, _skip, _over, _time)

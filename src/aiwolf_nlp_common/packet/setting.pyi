@@ -21,6 +21,7 @@ class Talk:
     max_count: TalkMaxCount
     max_length: TalkMaxLength
     max_skip: int
+    duration: int | None = ...
 
 @dataclass
 class WhisperMaxCount:
@@ -41,6 +42,7 @@ class Whisper:
     max_count: WhisperMaxCount
     max_length: WhisperMaxLength
     max_skip: int
+    duration: int | None = ...
 
 @dataclass
 class Vote:

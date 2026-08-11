@@ -8,7 +8,7 @@ from aiwolf_nlp_common.packet.setting import Setting
 
 def test_setting() -> None:
     value = json.loads(
-        """{"agent_count":13,"max_day":5,"talk_on_first_day":true,"talk":{"max_count":{"per_agent":4,"per_day":28},"max_length":{"count_in_word":false,"count_spaces":false,"mention_length":50,"base_length":50},"max_skip":0},"whisper":{"max_count":{"per_agent":4,"per_day":12},"max_length":{"count_in_word":false,"count_spaces":false,"mention_length":50,"base_length":50},"max_skip":0},"vote":{"max_count":1,"allow_self_vote":true},"attack_vote":{"max_count":1,"allow_self_vote":true,"allow_no_target":false},"timeout":{"action":60000,"response":120000},"role_num_map":{"BODYGUARD":1,"MEDIUM":1,"POSSESSED":1,"SEER":1,"VILLAGER":6,"WEREWOLF":3}}""",
+        """{"agent_count":13,"max_day":5,"talk":{"max_count":{"per_agent":4,"per_day":28},"max_length":{"count_in_word":false,"count_spaces":false,"mention_length":50,"base_length":50},"duration":600000,"max_skip":0},"whisper":{"max_count":{"per_agent":4,"per_day":12},"max_length":{"count_in_word":false,"count_spaces":false,"mention_length":50,"base_length":50},"max_skip":0},"vote":{"max_count":1,"allow_self_vote":true},"attack_vote":{"max_count":1,"allow_self_vote":true,"allow_no_target":false},"timeout":{"action":60000,"response":120000},"role_num_map":{"BODYGUARD":1,"MEDIUM":1,"POSSESSED":1,"SEER":1,"VILLAGER":6,"WEREWOLF":3}}""",
     )
     setting = Setting.from_dict(value)
 
@@ -31,6 +31,7 @@ def test_setting() -> None:
     assert setting.talk.max_length.mention_length == 50
     assert setting.talk.max_length.per_agent is None
     assert setting.talk.max_length.base_length == 50
+    assert setting.talk.duration == 600000
     assert setting.talk.max_skip == 0
     assert setting.whisper.max_count.per_agent == 4
     assert setting.whisper.max_count.per_day == 12
@@ -40,6 +41,7 @@ def test_setting() -> None:
     assert setting.whisper.max_length.mention_length == 50
     assert setting.whisper.max_length.per_agent is None
     assert setting.whisper.max_length.base_length == 50
+    assert setting.whisper.duration is None
     assert setting.whisper.max_skip == 0
     assert setting.vote.max_count == 1
     assert setting.vote.allow_self_vote is True
